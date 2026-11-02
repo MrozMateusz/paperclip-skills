@@ -11,8 +11,14 @@ description: Use when assigned an implementation subtask - setting up the branch
 - Read the subtask, its acceptance criteria and the Tech Lead's plan on the parent task.
 - If something needed to finish is missing or contradictory, ask in the task before coding.
 - Check the working tree is clean: `git status`. If it is not clean and the changes are not yours, stop and report.
-- Create the branch from the latest dev: `git switch dev`, `git pull`, then `git switch -c feat/<task-id>-<slug>` (or `fix/...`).
-  If `dev` does not exist yet, stop and ask the Tech Lead; never branch from `main`.
+- Find out where you are: `git rev-parse --abbrev-ref HEAD` and `git worktree list`.
+  - **Isolated workspace** (your folder is a separate worktree and you are already on a task branch
+    Paperclip created): do NOT run `git switch dev` (dev is checked out elsewhere and git will refuse).
+    Instead run `git fetch origin` and `git rebase origin/dev` so your branch starts from the latest dev.
+    Keep the branch name Paperclip gave you.
+  - **Primary checkout** (you are on `dev` or `main` in the main project folder): `git switch dev`, `git pull`,
+    then `git switch -c feat/<task-id>-<slug>` (or `fix/...`).
+  If `origin/dev` does not exist, stop and ask the Tech Lead; never branch from `main`.
 
 ## 2. Implement
 
